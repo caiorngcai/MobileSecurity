@@ -1,23 +1,15 @@
-package com.cairongcai.mobilesafe.Welcome.utils;
+package com.cairongcai.mobilesafe.utils;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Environment;
-
-import com.cairongcai.mobilesafe.Welcome.SplashActivity;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-
-import java.io.File;
 
 /**
  * Created by HY-IT on 2017/5/9.
  */
 
 public class BaseUtils {
+
     /**
      * 获得本地软件版本名称的方法，用来比对是否有新软件和展示到欢迎页面
      * @param context 上下文环境
@@ -27,7 +19,7 @@ public class BaseUtils {
     {
         PackageManager pgmanger=context.getPackageManager();
         try {
-            PackageInfo packageInfo=pgmanger.getPackageInfo(context.getPackageName(),0);
+            PackageInfo packageInfo =  pgmanger.getPackageInfo(context.getPackageName(),0);
             return packageInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.cairongcai.mobilesafe.Welcome.utils;
+package com.cairongcai.mobilesafe.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

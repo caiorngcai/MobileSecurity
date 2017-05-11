@@ -1,4 +1,4 @@
-package com.cairongcai.mobilesafe.Welcome;
+package com.cairongcai.mobilesafe.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,13 +10,14 @@ import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.animation.AlphaAnimation;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cairongcai.mobilesafe.HomeActivity;
 import com.cairongcai.mobilesafe.R;
-import com.cairongcai.mobilesafe.Welcome.utils.BaseUtils;
-import com.cairongcai.mobilesafe.Welcome.utils.StreamUtils;
-import com.cairongcai.mobilesafe.Welcome.utils.ToastUtil;
+import com.cairongcai.mobilesafe.utils.BaseUtils;
+import com.cairongcai.mobilesafe.utils.StreamUtils;
+import com.cairongcai.mobilesafe.utils.ToastUtil;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -34,6 +35,7 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 public class SplashActivity extends AppCompatActivity {
+    private RelativeLayout rl_splash;
     private int mLocalVersionCode;
     private TextView tv_version;
     private String mVersionDes;
@@ -165,8 +167,16 @@ public class SplashActivity extends AppCompatActivity {
 
         initUI();
         updateVersion();
+        initAnimation();
 
     }
+
+    private void initAnimation() {
+        AlphaAnimation animation=new AlphaAnimation(0,1);
+        animation.setDuration(3000);
+        rl_splash.setAnimation(animation);
+    }
+
 
     private void updateVersion() {
         mLocalVersionCode=BaseUtils.getLocalVersionCode(this);
@@ -233,6 +243,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void initUI() {
+        rl_splash = (RelativeLayout) findViewById(R.id.rl_splash);
         tv_version= (TextView) findViewById(R.id.tv_version);
         tv_version.setText("版本名称"+BaseUtils.getLocalVersionName(this));
     }

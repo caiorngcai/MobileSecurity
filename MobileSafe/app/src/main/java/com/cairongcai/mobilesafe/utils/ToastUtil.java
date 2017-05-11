@@ -1,4 +1,4 @@
-package com.cairongcai.mobilesafe.Welcome.utils;
+package com.cairongcai.mobilesafe.utils;
 
 import android.content.Context;
 import android.widget.Toast;
