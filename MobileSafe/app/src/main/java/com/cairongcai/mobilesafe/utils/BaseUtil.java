@@ -8,7 +8,7 @@ import android.content.pm.PackageManager;
  * Created by HY-IT on 2017/5/9.
  */
 
-public class BaseUtils {
+public class BaseUtil {
 
     /**
      * 获得本地软件版本名称的方法，用来比对是否有新软件和展示到欢迎页面

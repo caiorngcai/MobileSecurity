@@ -8,7 +8,7 @@ import java.io.InputStream;
  * Created by HY-IT on 2017/5/9.
  */
 
-public class StreamUtils {
+public class StreamUtil {
     /**
      * 把服务器返回的流转化为字符串的方法
      * @param is 返回的流

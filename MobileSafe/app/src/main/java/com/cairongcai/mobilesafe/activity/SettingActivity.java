@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cairongcai.mobilesafe.R;
+import com.cairongcai.mobilesafe.utils.ConstantValues;
+import com.cairongcai.mobilesafe.utils.SPutil;
 import com.cairongcai.mobilesafe.view.SettingItemView;
 
 public class SettingActivity extends Activity {
@@ -13,7 +15,6 @@ public class SettingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-
         initUpdate();
     }
 
@@ -22,11 +23,14 @@ public class SettingActivity extends Activity {
      */
     private void initUpdate() {
         final SettingItemView siv_update= (SettingItemView) findViewById(R.id.siv_update);
+        boolean open_update= SPutil.getBoolean(this, ConstantValues.OPEN_UPDATE,false);
+        siv_update.setCheck(open_update);
         siv_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean isCheck=siv_update.isCheck();
-                siv_update.setChecked(!isCheck);
+                siv_update.setCheck(!isCheck);
+                SPutil.putBoolean(getApplicationContext(), ConstantValues.OPEN_UPDATE,!isCheck);
             }
         });
     }

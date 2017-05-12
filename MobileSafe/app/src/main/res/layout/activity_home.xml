@@ -33,7 +33,5 @@
             android:verticalSpacing="10dp"
             android:numColumns="3"
             >
-
-
         </GridView>
 </LinearLayout>

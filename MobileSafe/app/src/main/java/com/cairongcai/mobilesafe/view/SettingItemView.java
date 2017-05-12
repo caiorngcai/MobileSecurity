@@ -67,8 +67,9 @@ public class SettingItemView extends RelativeLayout {
      * 根据CheckBox状态设置描述信息的方法
      * @param isCheck CheckBox的状态
      */
-    public void setChecked(boolean isCheck)
+    public void setCheck(boolean isCheck)
     {
+        cb_box.setChecked(isCheck);
         if(isCheck)
         {
             tv_des.setText(mDeson);

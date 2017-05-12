@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/iv_icon"
-        android:background="@drawable/launch_bg"
+        android:background="@mipmap/ic_launcher"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -16,5 +16,4 @@
         android:textSize="18sp"
         android:id="@+id/tv_title"
         />
-
 </LinearLayout>

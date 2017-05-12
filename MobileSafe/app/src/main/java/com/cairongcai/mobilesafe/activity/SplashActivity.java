@@ -15,8 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cairongcai.mobilesafe.R;
-import com.cairongcai.mobilesafe.utils.BaseUtils;
-import com.cairongcai.mobilesafe.utils.StreamUtils;
+import com.cairongcai.mobilesafe.utils.BaseUtil;
+import com.cairongcai.mobilesafe.utils.StreamUtil;
 import com.cairongcai.mobilesafe.utils.ToastUtil;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -179,7 +179,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private void updateVersion() {
-        mLocalVersionCode=BaseUtils.getLocalVersionCode(this);
+        mLocalVersionCode= BaseUtil.getLocalVersionCode(this);
         checkCloudVersionCode();
     }
 
@@ -201,7 +201,7 @@ public class SplashActivity extends AppCompatActivity {
                     connection.setReadTimeout(1000*2);
                     if(connection.getResponseCode()==200) {
                         InputStream is = connection.getInputStream();
-                        String json= StreamUtils.stream2string(is);
+                        String json= StreamUtil.stream2string(is);
                         JSONObject jsonObject=new JSONObject(json);
                         String versionName = jsonObject.getString("versionName");
                         mVersionDes = jsonObject.getString("versionDes");
@@ -245,7 +245,7 @@ public class SplashActivity extends AppCompatActivity {
     private void initUI() {
         rl_splash = (RelativeLayout) findViewById(R.id.rl_splash);
         tv_version= (TextView) findViewById(R.id.tv_version);
-        tv_version.setText("版本名称"+BaseUtils.getLocalVersionName(this));
+        tv_version.setText("版本名称"+ BaseUtil.getLocalVersionName(this));
     }
 
 }
