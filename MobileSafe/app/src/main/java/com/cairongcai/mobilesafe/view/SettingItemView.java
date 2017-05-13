@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.cairongcai.mobilesafe.R;
 
 /**
- * Created by HY-IT on 2017/5/11.
+ * Created by cairongcai on 2017/5/11.
  */
 
 public class SettingItemView extends RelativeLayout {

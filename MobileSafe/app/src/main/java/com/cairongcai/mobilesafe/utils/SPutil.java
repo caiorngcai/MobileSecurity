@@ -68,4 +68,18 @@ public class SPutil {
         }
         return sp.getString(key,defValue);
     }
+
+    /**
+     * 根据key删除sp节点的方法
+     * @param context 上下文环境
+     * @param key 要删除节点的key
+     */
+    public static void  remove(Context context,String key)
+    {
+        if(sp==null)
+        {
+            sp=context.getSharedPreferences("config",Context.MODE_PRIVATE);
+        }
+        sp.edit().remove(key).commit();
+    }
 }

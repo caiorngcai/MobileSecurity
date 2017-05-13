@@ -106,7 +106,7 @@ public class HomeActivity extends AppCompatActivity {
                 {
                     if(setpsd.equals(confirmpsd))
                     {
-                        Intent intent=new Intent(getApplicationContext(),TextActivity.class);
+                        Intent intent=new Intent(getApplicationContext(),SetupoverActivity.class);
                         startActivity(intent);
                         dialog.dismiss();
 
@@ -149,7 +149,7 @@ public class HomeActivity extends AppCompatActivity {
                 {
                     if(psd.equals(MD5Util.encoder(confirmpsd)))
                     {
-                        Intent intent=new Intent(getApplicationContext(),TextActivity.class);
+                        Intent intent=new Intent(getApplicationContext(),SetupoverActivity.class);
                         startActivity(intent);
                         dialog.dismiss();
                     }else {
