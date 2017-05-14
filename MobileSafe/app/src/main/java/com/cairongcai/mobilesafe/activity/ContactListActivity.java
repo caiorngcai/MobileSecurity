@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,7 +18,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cairongcai.mobilesafe.R;
+import com.cairongcai.mobilesafe.utils.Contact;
+import com.cairongcai.mobilesafe.utils.ContactQueryUtil;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,39 +31,29 @@ import static com.cairongcai.mobilesafe.R.layout.contact_item_view;
 
 public class ContactListActivity extends AppCompatActivity {
 
+    protected static final String tag = "ContactListActivity";
     private ListView lv_contact;
-    private List<Map<String,String>> list=new ArrayList<Map<String,String>>();
     private MyAdapter mAdapter;
+    private List<Contact> contacts ;
 
-    private Handler mhander=new Handler()
-    {
-
-        private ListView lv_contact;
-
-        @Override
-        public void handleMessage(Message msg) {
-            mAdapter = new MyAdapter();
-            lv_contact.setAdapter(mAdapter);
-        }
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
-
+        //气死了，我的华为手机读不到联系人具体数据，只有ID,害我调了一下午
+        contacts = ContactQueryUtil.querycontact(getApplicationContext());
         initUI();
-        initData();
+
     }
     class MyAdapter extends BaseAdapter{
-
         @Override
         public int getCount() {
-            return list.size();
+            return contacts.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return list.get(position);
+            return contacts.get(position);
         }
 
         @Override
@@ -77,8 +71,8 @@ public class ContactListActivity extends AppCompatActivity {
                 view=View.inflate(getApplicationContext(), R.layout.contact_item_view,null);
                TextView tv_name= (TextView) view.findViewById(R.id.tv_name);
                 TextView tv_phone= (TextView) view.findViewById(R.id.tv_phone);
-                tv_name.setText(list.get(position).get("name"));
-                tv_phone.setText(list.get(position).get("phone"));
+                tv_name.setText(contacts.get(position).getName());
+                tv_phone.setText(contacts.get(position).getPhone());
             }
             return view;
         }
@@ -86,13 +80,14 @@ public class ContactListActivity extends AppCompatActivity {
 
     private void initUI() {
         lv_contact = (ListView) findViewById(R.id.lv_contact);
+        mAdapter=new MyAdapter();
+        lv_contact.setAdapter(mAdapter);
         lv_contact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(mAdapter!=null)
                 {
-                    HashMap<String,String> map= (HashMap<String, String>) mAdapter.getItem(position);
-                    String phone=map.get("phone");
+                    String phone=contacts.get(position).getPhone();
                     Intent intent=new Intent();
                     intent.putExtra("phone",phone);
                     setResult(0,intent);
@@ -100,44 +95,5 @@ public class ContactListActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void initData() {
-
-        new Thread()
-        {
-            @Override
-            public void run() {
-
-                ContentResolver resolver=getContentResolver();
-                Cursor cursor=resolver.query(Uri.parse("content://com.android.contacts/raw_contacts"),
-                        new String[]{"contact_id"},null,null,null);
-                while(cursor.moveToNext())
-                {
-                    String id=cursor.getString(0);
-                    Cursor indexcursor=resolver.query(Uri.parse("content://com.android.contacts/data"),
-                            new String[]{"data1","mimetype"},"raw_contact_id=?",new String[]{id},null);
-                    HashMap<String,String> map=new HashMap<String, String>();
-                    while (indexcursor.moveToNext())
-                    {
-                        String data=indexcursor.getString(0);
-                        String type=indexcursor.getString(1);
-                         if(type.equals("vnd.android.cursor.item/phone_v2"))
-                         {
-                             if(TextUtils.isEmpty(data))
-                             map.put("phone",data);
-                         }else if(type.equals("vnd.android.cursor.item/name"))
-                         {
-                             if(TextUtils.isEmpty(data))
-                                 map.put("name",data);
-                         }
-                    }
-                    indexcursor.close();
-                    list.add(map);
-                }
-                cursor.close();
-                mhander.sendEmptyMessage(0);
-            }
-        }.start();
     }
 }

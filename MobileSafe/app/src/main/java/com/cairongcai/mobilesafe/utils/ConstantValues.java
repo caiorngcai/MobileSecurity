@@ -25,4 +25,8 @@ public class ConstantValues {
      * 安全联系人的Key
      */
     public static final String CONTACT_NUMBER="contact_number";
+    /**
+     * 是否开启防盗总功能的key
+     */
+    public static final String IS_OPEN_SECURITY="is_open_security";
 }

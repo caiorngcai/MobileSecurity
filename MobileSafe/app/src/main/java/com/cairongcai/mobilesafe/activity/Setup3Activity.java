@@ -16,6 +16,7 @@ public class Setup3Activity extends AppCompatActivity {
 
     private Button bt_select_number;
     private EditText et_phone_number;
+    private String phone="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,9 @@ public class Setup3Activity extends AppCompatActivity {
     private void initUI() {
         bt_select_number = (Button) findViewById(R.id.bt_select_number);
         et_phone_number = (EditText) findViewById(R.id.et_phone_number);
-        String contact_number= SPutil.getString(getApplicationContext(), ConstantValues.CONTACT_NUMBER,"");
-        if(!TextUtils.isEmpty(contact_number)){
-            et_phone_number.setText(contact_number);
-        }else {
-            bt_select_number.setOnClickListener(new View.OnClickListener() {
+         phone= SPutil.getString(getApplicationContext(), ConstantValues.CONTACT_NUMBER,"");
+        et_phone_number.setText(phone);
+        bt_select_number.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(getApplicationContext(),ContactListActivity.class);
@@ -40,26 +39,31 @@ public class Setup3Activity extends AppCompatActivity {
                 }
             });
         }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        if(data!=null)
        {
-          String phone= data.getStringExtra("phone");
-           SPutil.putString(getApplicationContext(),ConstantValues.CONTACT_NUMBER,phone);
+           phone =  data.getStringExtra("phone");
+           et_phone_number.setText(phone);
        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     public void nextPage(View view)
     {
-
+        phone= et_phone_number.getText().toString();
+        SPutil.putString(getApplicationContext(),ConstantValues.CONTACT_NUMBER,phone);
+        Intent intent=new Intent(getApplicationContext(),Setup4Activity.class);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.next_in_anim, R.anim.next_out_anim);
     }
     public void prePage(View view)
     {
         Intent intent=new Intent(getApplicationContext(),Setup2Activity.class);
         startActivity(intent);
         finish();
+        overridePendingTransition(R.anim.pre_in_anim, R.anim.pre_out_anim);
     }
 }
