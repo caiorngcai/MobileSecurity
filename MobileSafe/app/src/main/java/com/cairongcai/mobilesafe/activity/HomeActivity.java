@@ -2,6 +2,7 @@ package com.cairongcai.mobilesafe.activity;
 
 import android.content.Intent;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,7 +36,6 @@ public class HomeActivity extends AppCompatActivity {
         initUI();
         initData();
     }
-
     /**
      * 此方法准备好要填充到gridview中的数据，包括资源文件数组，数据适配器。
      *
@@ -62,9 +62,17 @@ public class HomeActivity extends AppCompatActivity {
                        //暂时输入密码对话框
                        showPWD();
                         break;
+                    case 1:
+                        Intent intent1=new Intent(getApplicationContext(),BlackNumberActivity.class);
+                        startActivity(intent1);
+                        break;
+                    case 7:
+                        Intent intent7=new Intent(getApplicationContext(),AtoolActivity.class);
+                        startActivity(intent7);
+                        break;
                     case 8:
-                        Intent intent=new Intent(getApplicationContext(),SettingActivity.class);
-                        startActivity(intent);
+                        Intent intent8=new Intent(getApplicationContext(),SettingActivity.class);
+                        startActivity(intent8);
                         break;
                 }
             }
@@ -168,8 +176,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
-
     private void initUI() {
         gv_home = (GridView) findViewById(R.id.gv_home);
     }

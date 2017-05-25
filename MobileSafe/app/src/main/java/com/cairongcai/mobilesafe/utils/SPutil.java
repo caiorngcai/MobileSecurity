@@ -82,4 +82,34 @@ public class SPutil {
         }
         sp.edit().remove(key).commit();
     }
+
+    /**
+     * 往sp存储int类型值的方法
+     * @param context
+     * @param key
+     * @param value
+     */
+    public static void putInt(Context context,String key,int value)
+    {
+        if(sp!=null)
+        {
+            sp=context.getSharedPreferences("config",Context.MODE_PRIVATE);
+        }
+        sp.edit().putInt(key,value).commit();
+    }
+
+    /**
+     * 从sp中获得int类型存储值的方法
+     * @param context
+     * @param key
+     * @return
+     */
+    public static int getInt(Context context,String key)
+    {
+        if(sp!=null)
+        {
+            sp=context.getSharedPreferences("config",Context.MODE_PRIVATE);
+        }
+        return sp.getInt(key,0);
+    }
 }

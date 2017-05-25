@@ -18,7 +18,7 @@ public class ConstantValues {
      */
     public static final String SETUP_OVER="setup_over";
     /**
-     * 防盗模块sim卡是否绑定的方法
+     * 防盗模块sim卡绑定序列号的key
      */
     public static final String SIM_NUMBER_BOUND="sim_number_bound";
     /**

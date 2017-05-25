@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -168,7 +169,45 @@ public class SplashActivity extends AppCompatActivity {
         initUI();
         updateVersion();
         initAnimation();
+        initdb();
 
+    }
+
+    private void initdb() {
+
+      //  initAddressdb("address.db");
+    }
+
+    private void initAddressdb(String dbName) {
+
+        File files=getFilesDir();//files文件夹路径
+        File file=new File(files,dbName);
+        if(file.exists())
+        {
+            return;
+        }
+        InputStream stream=null;
+        FileOutputStream fos=null;
+        try {
+            stream = getAssets().open(dbName);
+            fos=new FileOutputStream(file);
+            byte[] bs=new byte[1024];
+            int temp=stream.read(bs);
+            while(temp!=-1)
+            {
+                fos.write(bs,0,temp);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(fos!=null&&stream!=null)
+            try {
+                fos.close();
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void initAnimation() {

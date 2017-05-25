@@ -25,7 +25,6 @@ public class Setup2Activity extends AppCompatActivity {
 
         initUI();
     }
-
     /**
      * 绑定sim卡改变UI的操作方法
      */
